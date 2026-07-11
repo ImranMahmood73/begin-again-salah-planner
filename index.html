@@ -292,8 +292,8 @@ deleteAll.onclick=()=>{if(confirm('Delete the estimate and all saved progress fr
 downloadBackup.onclick=()=>{const payload={app:'Begin Again',version:'final-v4',exportedAt:new Date().toISOString(),data:state};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='begin-again-backup-'+todayKey()+'.json';a.click();URL.revokeObjectURL(a.href);};
 restoreBtn.onclick=()=>restoreFile.click();
 restoreFile.onchange=async e=>{try{let raw=await e.target.files[0].text(),obj=JSON.parse(raw);if(!obj.data||obj.app!=='Begin Again')throw Error();state=obj.data;save();alert('Your progress has been restored.');}catch{alert('This backup file could not be restored.');}e.target.value='';};
-const reminders=[{text:'The most beloved deeds are those done consistently, even if they are small.',ref:'Meaning based on Sahih al-Bukhari 6464'},{text:'With hardship comes ease.',ref:'Qur’an 94:5–6'},{text:'Start with today. Let the past become a steady path forward.',ref:'Begin Again reminder'},{text:'A small step done sincerely is still a step back to Allah.',ref:'Begin Again reminder'}];
-const r=reminders[new Date().getDate()%reminders.length];motivationText.textContent=r.text;motivationRef.textContent=r.ref;
+const reminders=[{text:'The most beloved deeds are those done consistently, even if they are small.',ref:'Meaning based on Sahih al-Bukhari 6464'},{text:'With hardship comes ease.',ref:'Qur’an 94:5–6'},{text:'Start with today. Let the past become a steady path forward.',ref:''},{text:'A small step done sincerely is still a step back to Allah.',ref:''}];
+const r=reminders[new Date().getDate()%reminders.length];motivationText.textContent=r.text;motivationRef.textContent=r.ref;motivationRef.style.display=r.ref?'block':'none';
 if('serviceWorker' in navigator){navigator.serviceWorker.register('./service-worker.js').catch(()=>{});}
 render();
 </script>
